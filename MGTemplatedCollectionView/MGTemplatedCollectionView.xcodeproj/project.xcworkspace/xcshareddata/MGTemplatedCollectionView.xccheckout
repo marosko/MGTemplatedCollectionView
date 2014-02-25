@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>93E62B70-2A89-41F4-89F3-A18BA8E16E2B</string>
+	<key>IDESourceControlProjectName</key>
+	<string>MGTemplatedCollectionView</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>D54B6117-99A5-423A-94EF-FA0163E08EB4</key>
+		<string>https://github.com/marosko/MGResizableCollectionView.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>MGTemplatableCollectionView/MGTemplatableCollectionView/MGTemplatedCollectionView.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>D54B6117-99A5-423A-94EF-FA0163E08EB4</key>
+		<string>../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/marosko/MGResizableCollectionView.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>D54B6117-99A5-423A-94EF-FA0163E08EB4</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>D54B6117-99A5-423A-94EF-FA0163E08EB4</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ResizableCollectionView</string>
+		</dict>
+	</array>
+</dict>
+</plist>
