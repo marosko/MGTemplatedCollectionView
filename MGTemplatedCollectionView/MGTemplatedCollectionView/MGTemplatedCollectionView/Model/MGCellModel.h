@@ -25,4 +25,6 @@
 
 @property CGRect frame;
 
+@property CGFloat predefinedHeight;
+
 @end

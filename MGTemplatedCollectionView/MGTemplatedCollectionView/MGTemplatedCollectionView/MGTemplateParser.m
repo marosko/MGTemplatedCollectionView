@@ -47,23 +47,24 @@
 
     NSRange range = NSMakeRange(0, input.length);
     
-    if ( range.location == NSNotFound ) {
-        returnBlock(input, nil, nil);
-        return;
-    }
-    
     NSTextCheckingResult* result = [regex firstMatchInString:input
                                                      options:0
                                                        range:range];
     
+    if ( result == nil ) {
+        returnBlock(input, nil, nil);
+        return;
+    }
+    
     NSLog(@"regex pattern: %@ search in: %@; found: %d %d", pattern, input, result.range.location, result.range.length);
-
-
+    
     NSString* preCellInput = [input substringToIndex:result.range.location];
     
     // cellRange excluding cellStart and cellEnd strings
     NSRange cellRange = NSMakeRange(result.range.location + [self.syntax.cellStart length] ,
                                 result.range.length - [self.syntax.cellStart length] - [self.syntax.cellEnd length]);
+    
+
     
     NSString* cellInput = [input substringWithRange:cellRange];
     
@@ -81,6 +82,44 @@
                                       sizeInUnit:[inputText length]
                                            atRow:row];
 }
+
+/**
+ all the postRowInput must be divided by comma
+ height defintion: hXXX, where XXX is a digit
+ 
+ */
+- (void)processPostCellInputText:(NSString*)postCellTextInput
+                           atRow:(NSInteger)row
+                forTemplateModel:(MGTemplateModel*)templateModel
+{
+    // check height of cells
+    
+    // (^|,)h\d+($|,)
+    NSMutableString* pattern = [NSMutableString string];
+    [pattern appendString:@"(^|,)"]; // start of an input, or devided by comma
+    [pattern appendString:@"h\\d+"]; // hDIGIT e.g h10, h5, h1234
+    [pattern appendString:@"($|,)"]; // start of a cell
+ 
+    NSError* error;
+    NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern:pattern
+                                                                           options:0
+                                                                             error:&error];
+
+    NSTextCheckingResult* result = [regex firstMatchInString:postCellTextInput
+                                                     options:0
+                                                       range:NSMakeRange(0, [postCellTextInput length])];
+    if ( result == nil ) {
+        // TODO continue with other postCell attributes
+        return;
+    }
+    
+    // TODO: remove pre digit
+    NSString* heightAttribute = [postCellTextInput substringWithRange:result.range];
+    NSInteger heightInPixels = [[heightAttribute substringFromIndex:1] intValue]; // skip first 'h' character
+
+    NSLog(@"height: %d", heightInPixels);
+}
+
 
 /*
  input text example:
@@ -102,6 +141,7 @@
         
         __block BOOL isAnyCellAdded = NO;
         __block NSString* input = inputRow;
+        __block NSString* postRowInput = nil;
         // iterate through all cells until not in the end of row
         while ( [input length] ) {
             
@@ -111,15 +151,25 @@
                                        NSLog(@"preCell: %@; cell: %@; postCell: %@", preCellInput, cellInput, postCellInput);
                                        
                                        input = postCellInput;
+                                       
                                        if ( [cellInput length] > 0 ) {
                                            MGCellModel* cellModel = [self cellModelFromText:cellInput atRow:rowNumber];
                                            [templateModel addCellModel:cellModel];
                                            isAnyCellAdded = YES;
-
-                                       } 
+                                       } else {
+                                           postRowInput = preCellInput;
+                                       }
                                    }];
             
         }
+        
+        if ( [postRowInput length] > 0 ) {
+            // there is some postCell text input
+            [self processPostCellInputText:postRowInput
+                                     atRow:rowNumber
+                          forTemplateModel:templateModel];
+        }
+        
         
         if ( isAnyCellAdded ) {
             rowNumber++;

@@ -18,6 +18,7 @@
         _uniqueId = uniqueId;
         _sizeInUnit = sizeInUnit;
         _row = row;
+        _predefinedHeight = 0;
     }
     
     return self;
