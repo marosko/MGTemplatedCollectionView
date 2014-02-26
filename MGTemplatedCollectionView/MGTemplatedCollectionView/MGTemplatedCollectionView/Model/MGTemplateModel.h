@@ -20,4 +20,7 @@
 
 - (CGRect)frameForCellAtIndex:(NSInteger)anIndex;
 
+- (void)enumarateCellsAtRow:(NSInteger)row
+                 usingBlock:(void (^)(MGCellModel* cellModel, NSUInteger idx, BOOL *stop))block;
+
 @end

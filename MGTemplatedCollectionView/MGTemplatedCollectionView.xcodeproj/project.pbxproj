@@ -27,6 +27,7 @@
 		6E8E5C5818B67C7E00B9829A /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E8E5C5718B67C7E00B9829A /* XCTest.framework */; };
 		6E8E5C5918B67C7E00B9829A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E8E5C3518B67C7E00B9829A /* Foundation.framework */; };
 		6E8E5C5A18B67C7E00B9829A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E8E5C3918B67C7E00B9829A /* UIKit.framework */; };
+		6E9741D318BE8653009819F0 /* NSRegularExpression+MGCustom.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E9741D218BE8653009819F0 /* NSRegularExpression+MGCustom.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +70,8 @@
 		6E8E5C3918B67C7E00B9829A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		6E8E5C5618B67C7E00B9829A /* MGTemplatedCollectionViewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MGTemplatedCollectionViewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E8E5C5718B67C7E00B9829A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		6E9741D118BE8653009819F0 /* NSRegularExpression+MGCustom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSRegularExpression+MGCustom.h"; sourceTree = "<group>"; };
+		6E9741D218BE8653009819F0 /* NSRegularExpression+MGCustom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSRegularExpression+MGCustom.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +120,7 @@
 		6E2F61F518BD54F400494500 /* MGTemplatedCollectionView */ = {
 			isa = PBXGroup;
 			children = (
+				6E9741D018BE85E1009819F0 /* Utils */,
 				6E2F61F618BD54F400494500 /* CollectionView */,
 				6E2F61F918BD54F400494500 /* MGSyntax.h */,
 				6E2F61FA18BD54F400494500 /* MGSyntax.m */,
@@ -176,6 +180,15 @@
 				6E8E5C5718B67C7E00B9829A /* XCTest.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6E9741D018BE85E1009819F0 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				6E9741D118BE8653009819F0 /* NSRegularExpression+MGCustom.h */,
+				6E9741D218BE8653009819F0 /* NSRegularExpression+MGCustom.m */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -283,6 +296,7 @@
 				6E2F621518BD54F400494500 /* MGTemplateModelDecorator.m in Sources */,
 				6E2F621118BD54F400494500 /* main.m in Sources */,
 				6E2F621818BD54F400494500 /* MGTemplateModel.m in Sources */,
+				6E9741D318BE8653009819F0 /* NSRegularExpression+MGCustom.m in Sources */,
 				6E2F621718BD54F400494500 /* MGCellModel.m in Sources */,
 				6E2F621A18BD54F400494500 /* MGViewController.m in Sources */,
 				6E2F621318BD54F400494500 /* MGTemplatedCollectionViewLayout.m in Sources */,

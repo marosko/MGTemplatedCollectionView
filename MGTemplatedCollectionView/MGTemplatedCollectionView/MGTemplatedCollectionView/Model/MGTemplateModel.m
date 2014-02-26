@@ -89,4 +89,10 @@
    // return CGRectMake(100*anIndex + 10+anIndex, 10+100*cellModel.row, 100, 100);
 }
 
+- (void)enumarateCellsAtRow:(NSInteger)row
+                 usingBlock:(void (^)(MGCellModel *, NSUInteger, BOOL *))block
+{
+    [[self.cellModels objectAtIndex:row] enumerateObjectsUsingBlock:block];
+}
+
 @end

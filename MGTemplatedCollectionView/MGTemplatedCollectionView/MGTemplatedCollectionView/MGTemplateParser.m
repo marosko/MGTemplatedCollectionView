@@ -12,6 +12,10 @@
 #import "MGCellModel.h"
 #import "MGTemplateModel.h"
 
+#import "NSRegularExpression+MGCustom.h"
+
+#define kMGTemplateParser_AttributesRegExpPattern     @"\\(.+?\\)"
+
 @implementation MGTemplateParser
 
 - (id)initWithSyntax:(MGSyntax*)aSyntax
@@ -23,6 +27,19 @@
     return self;
 }
 
+// return a templates attributes if containing any - attributes are defined by text being in parenthesis
+- (NSString*)templateAttributesFromString:(NSString*)aString
+{
+    // \(.+?\) - additional postCell attributes must be set in parenthesis
+    NSString *attributes = [NSRegularExpression firstMatchedPattern:kMGTemplateParser_AttributesRegExpPattern
+                                                           inString:aString];
+    if ( [attributes length] <= 2 ) { // must be at least greater than 2, becasue of parenthesis
+        return nil;
+    }
+    attributes = [attributes substringWithRange:NSMakeRange(1, [attributes length]-2)]; // substring without bordering parenthesis
+
+    return attributes;
+}
 
 - (void)firstCellModelForStringInput:(NSString*)input
                          returnBlock:(void (^)(NSString *preCellInput, NSString* cellInput, NSString* postCellInput)) returnBlock
@@ -64,7 +81,6 @@
     NSRange cellRange = NSMakeRange(result.range.location + [self.syntax.cellStart length] ,
                                 result.range.length - [self.syntax.cellStart length] - [self.syntax.cellEnd length]);
     
-
     
     NSString* cellInput = [input substringWithRange:cellRange];
     
@@ -77,13 +93,25 @@
 
 - (MGCellModel*)cellModelFromText:(NSString*)inputText atRow:(NSInteger)row
 {
+    NSString* uniqueId = inputText;
+    
+    // check if an inputText contains some attributes
+    NSString *attributes = [self templateAttributesFromString:inputText];
+    if ( attributes != nil ) { // does also apply for 0-length string, that means that it includes attributes, but they are empty
+        // remove attributes from uniqueId of the cell
+        uniqueId = [NSRegularExpression stringByReplacingPattern:kMGTemplateParser_AttributesRegExpPattern
+                                                        inString:inputText];
+    }
+    
     // if not defined else, the cell size is taken from the "length" of a uniqueId string
-    return [[MGCellModel alloc] initWithUniqueId:inputText
-                                      sizeInUnit:[inputText length]
+    return [[MGCellModel alloc] initWithUniqueId:uniqueId
+                                      sizeInUnit:[uniqueId length]
                                            atRow:row];
 }
 
 /**
+ - all special attributes have to be set in parenthesis
+ 
  all the postRowInput must be divided by comma
  height defintion: hXXX, where XXX is a digit
  
@@ -92,32 +120,37 @@
                            atRow:(NSInteger)row
                 forTemplateModel:(MGTemplateModel*)templateModel
 {
+    
+    
     // check height of cells
+    NSString *attributes = [self templateAttributesFromString:postCellTextInput];
+    if ( [attributes length] == 0 ) {
+        return;
+    }
     
     // (^|,)h\d+($|,)
     NSMutableString* pattern = [NSMutableString string];
     [pattern appendString:@"(^|,)"]; // start of an input, or devided by comma
     [pattern appendString:@"h\\d+"]; // hDIGIT e.g h10, h5, h1234
     [pattern appendString:@"($|,)"]; // start of a cell
- 
-    NSError* error;
-    NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern:pattern
-                                                                           options:0
-                                                                             error:&error];
 
-    NSTextCheckingResult* result = [regex firstMatchInString:postCellTextInput
-                                                     options:0
-                                                       range:NSMakeRange(0, [postCellTextInput length])];
-    if ( result == nil ) {
-        // TODO continue with other postCell attributes
+    NSString* heightAttributeString = [NSRegularExpression firstMatchedPattern:pattern inString:attributes];
+
+    if ( heightAttributeString == nil ) {
         return;
     }
     
-    // TODO: remove pre digit
-    NSString* heightAttribute = [postCellTextInput substringWithRange:result.range];
-    NSInteger heightInPixels = [[heightAttribute substringFromIndex:1] intValue]; // skip first 'h' character
+    NSInteger heightInPixels = [NSRegularExpression firstMatchedIntegerInString:heightAttributeString];
 
     NSLog(@"height: %d", heightInPixels);
+    
+    if ( heightInPixels > 0 ) {
+        [templateModel enumarateCellsAtRow:row usingBlock:^(MGCellModel *cellModel, NSUInteger idx, BOOL *stop) {
+            if ( cellModel.predefinedHeight == 0 ) {
+                cellModel.predefinedHeight = heightInPixels;
+            }
+        }];
+    }
 }
 
 

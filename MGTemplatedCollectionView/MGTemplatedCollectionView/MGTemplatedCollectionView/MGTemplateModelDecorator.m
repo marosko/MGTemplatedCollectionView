@@ -19,8 +19,11 @@
     return 10.0;
 }
 
-- (CGFloat)cellHeight
+- (CGFloat)heightForCellModel:(MGCellModel*)aCellModel
 {
+    if ( aCellModel.predefinedHeight > 0 ) {
+        return aCellModel.predefinedHeight;
+    }
     return 100.0;
 }
 
@@ -40,6 +43,8 @@
     // take all sizes of unit that are defined in one row and calculate the pixel size of cells in a collectionView
     
     NSInteger rowIndex = 0;
+
+    CGFloat posY = 0;
     for ( NSArray* row in templateModel.rowsOfCellModels ) {
         
         NSInteger sumOfUnits = [self sumOfUnitsInCellModelsRow:row];
@@ -52,15 +57,24 @@
         
         // setup real sizes for cells
         CGFloat posX = 0;
+        
+        CGFloat macCellHeightInRow = 0;
         for ( MGCellModel* cellModel in row ) {
+            
+            // remember the highest cell size
+            CGFloat cellHeight = [self heightForCellModel:cellModel];
+            macCellHeightInRow = cellHeight > macCellHeightInRow ? cellHeight : macCellHeightInRow;
+            
             cellModel.frame = CGRectMake(posX,
-                                         rowIndex * ([self cellHeight] + [self interCellsSize]),
+                                         posY,
                                          unitSize * cellModel.sizeInUnit,
-                                         [self cellHeight]);
+                                         cellHeight);
             
             // shift currentPosX by width of unitSize + interCellSize
             posX += unitSize * cellModel.sizeInUnit + [self interCellsSize];
+            
         }
+        posY += macCellHeightInRow + [self interCellsSize];
         
         rowIndex++;
     }

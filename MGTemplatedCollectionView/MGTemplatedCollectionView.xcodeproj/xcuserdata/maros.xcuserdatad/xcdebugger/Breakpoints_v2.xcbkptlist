@@ -218,27 +218,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MGTemplatedCollectionView/MGTemplatedCollectionView/MGTemplateParser.m"
-            timestampString = "415137207.295509"
+            timestampString = "415143069.549954"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "167"
-            endingLineNumber = "167"
-            landmarkName = "-parsedTemplateModelFromText:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MGTemplatedCollectionView/MGTemplatedCollectionView/MGTemplateParser.m"
-            timestampString = "415136670.988199"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "98"
-            endingLineNumber = "98"
+            startingLineNumber = "132"
+            endingLineNumber = "132"
             landmarkName = "-processPostCellInputText:atRow:forTemplateModel:"
             landmarkType = "5">
          </BreakpointContent>
@@ -250,43 +234,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MGTemplatedCollectionView/MGTemplatedCollectionView/MGTemplateParser.m"
-            timestampString = "415137258.254227"
+            timestampString = "415143065.337662"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "108"
-            endingLineNumber = "108"
-            landmarkName = "-processPostCellInputText:atRow:forTemplateModel:"
+            startingLineNumber = "99"
+            endingLineNumber = "99"
+            landmarkName = "-cellModelFromText:atRow:"
             landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[MGTemplateParser processPostCellInputText:atRow:forTemplateModel:]"
-                  moduleName = "MGTemplatedCollectionView"
-                  urlString = "file://localhost/Users/maros/maros/cliparea/marosko_github/MGTemplatedCollectionView/MGTemplatedCollectionView/MGTemplatedCollectionView/MGTemplatedCollectionView/MGTemplateParser.m"
-                  timestampString = "415137366.253799"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "110"
-                  endingLineNumber = "110"
-                  offsetFromSymbolStart = "352">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[MGTemplateParser processPostCellInputText:atRow:forTemplateModel:]"
-                  moduleName = "MGTemplatedCollectionView"
-                  urlString = "file://localhost/Users/maros/maros/cliparea/marosko_github/MGTemplatedCollectionView/MGTemplatedCollectionView/MGTemplatedCollectionView/MGTemplatedCollectionView/MGTemplateParser.m"
-                  timestampString = "415137366.254463"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "110"
-                  endingLineNumber = "110"
-                  offsetFromSymbolStart = "414">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
