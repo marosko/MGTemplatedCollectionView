@@ -14,6 +14,7 @@
 #import "MGTemplatedCollectionViewLayout.h"
 
 #import "MGTemplateModelDecorator.h"
+#import "MGTemplateRepresentation.h"
 
 @interface MGViewController ()
 
@@ -23,7 +24,7 @@
 
 @implementation MGViewController
 
-- (void)setupWithTemplateText:(NSString*)template
+- (void)setupWithTemplateText:(NSString*)templateText
 {
     MGTemplateParser *parser = [[MGTemplateParser alloc] initWithSyntax:[[MGSyntax alloc] init]];
 
@@ -32,7 +33,9 @@
 //    [template appendString:@"[xx][d][ee]\n"];
 //    [template appendString:@"[qq][wwwww]\n"];
     
-    self.templateModel = [parser parsedTemplateModelFromText:template];
+    MGTemplateRepresentation* template = [[MGTemplateRepresentation alloc] initWithStringRepresentation:templateText];
+    
+    self.templateModel = [parser parsedTemplateModelFromTemplateInput:template];
     
     MGTemplateModelDecorator* modelDecorator = [[MGTemplateModelDecorator alloc] init];
     [modelDecorator calculateCellsPositionsInTemplateModel:self.templateModel

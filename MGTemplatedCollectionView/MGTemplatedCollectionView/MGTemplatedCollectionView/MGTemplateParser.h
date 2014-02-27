@@ -10,6 +10,7 @@
 
 @class MGTemplateModel;
 @class MGSyntax;
+@class MGTemplateRepresentation;
 
 @interface MGTemplateParser : NSObject
 
@@ -22,6 +23,6 @@
   [a][b][ccc]
   [a][dd][ee]
  */
-- (MGTemplateModel*)parsedTemplateModelFromText:(NSString*)input;
+- (MGTemplateModel*)parsedTemplateModelFromTemplateInput:(MGTemplateRepresentation*)input;
 
 @end

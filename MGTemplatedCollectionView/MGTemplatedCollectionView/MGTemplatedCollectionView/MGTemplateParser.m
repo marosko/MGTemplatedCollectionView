@@ -11,6 +11,7 @@
 #import "MGSyntax.h"
 #import "MGCellModel.h"
 #import "MGTemplateModel.h"
+#import "MGTemplateRepresentation.h"
 
 #import "NSRegularExpression+MGCustom.h"
 
@@ -159,11 +160,12 @@
  [a][b][ccc]
  [a][dd][ee]
  */
-- (MGTemplateModel*)parsedTemplateModelFromText:(NSString*)inputText
+- (MGTemplateModel*)parsedTemplateModelFromTemplateInput:(MGTemplateRepresentation*)input
 {
  
     MGTemplateModel* templateModel = [[MGTemplateModel alloc] init];
     
+    NSString *inputText = input.stringRepresentation;
     
     NSArray* rowsInputText = [inputText componentsSeparatedByString:self.syntax.newRow];
 
