@@ -13,6 +13,8 @@
 #import "MGTemplateModel.h"
 #import "MGTemplateRepresentation.h"
 
+#import "MGTemplateModelDecorator.h"
+
 #import "NSRegularExpression+MGCustom.h"
 
 #define kMGTemplateParser_AttributesRegExpPattern     @"\\(.+?\\)"
@@ -160,7 +162,7 @@
  [a][b][ccc]
  [a][dd][ee]
  */
-- (MGTemplateModel*)parsedTemplateModelFromTemplateInput:(MGTemplateRepresentation*)input
+- (MGTemplateModel*)parsedTemplateModelFromTemplateRepresentation:(MGTemplateRepresentation*)input
 {
  
     MGTemplateModel* templateModel = [[MGTemplateModel alloc] init];
@@ -173,6 +175,7 @@
     // for each row in text (seperated by newLine sign)
     for ( NSString* inputRow in rowsInputText ) {
       
+        [templateModel addNewRow];
         
         __block BOOL isAnyCellAdded = NO;
         __block NSString* input = inputRow;
@@ -208,11 +211,9 @@
         
         if ( isAnyCellAdded ) {
             rowNumber++;
-            [templateModel addNewRow];
         }
-        
     }
-    
+        
     return templateModel;
 }
 

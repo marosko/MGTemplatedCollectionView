@@ -9,6 +9,10 @@
 #import "MGTemplatedCollectionViewLayout.h"
 
 #import "MGTemplateModel.h"
+#import "MGTemplateRepresentation.h"
+#import "MGTemplateParser.h"
+#import "MGSyntax.h"
+#import "MGTemplateModelDecorator.h"
 
 @interface MGTemplatedCollectionViewLayout ()
 
@@ -21,6 +25,19 @@
 - (void)reset
 {
     self.layoutAttributes = nil;
+}
+
+- (void)setupWithTemplateRepresentation:(MGTemplateRepresentation*)templateRepresentation
+{
+    MGTemplateParser* parser = [[MGTemplateParser alloc] initWithSyntax:[[MGSyntax alloc] init]];
+    MGTemplateModel* aTemplateModel = [parser parsedTemplateModelFromTemplateRepresentation:templateRepresentation];
+    
+    MGTemplateModelDecorator* modelDecorator = [[MGTemplateModelDecorator alloc] init];
+    [modelDecorator calculateCellsPositionsInTemplateModel:aTemplateModel
+                                              withDelegate:aTemplateModel
+                                         forCollectionView:self.collectionView];
+    
+    [self setTemplateModel:aTemplateModel];
 }
 
 - (void)setTemplateModel:(MGTemplateModel *)templateModel

@@ -13,12 +13,6 @@
 
 @implementation MGTemplateModelDecorator
 
-- (CGFloat)interCellsSize
-{
-    // space between cells, so they are not right to each other
-    return 10.0;
-}
-
 - (CGFloat)heightForCellModel:(MGCellModel*)aCellModel
 {
     if ( aCellModel.predefinedHeight > 0 ) {
@@ -38,9 +32,12 @@
 }
 
 - (void)calculateCellsPositionsInTemplateModel:(MGTemplateModel*)templateModel
+                                  withDelegate:(id <MGTemplateModelDelegate>)aDelegate
                              forCollectionView:(UICollectionView*)collectionView
 {
     // take all sizes of unit that are defined in one row and calculate the pixel size of cells in a collectionView
+    
+    CGFloat interCellsSize = [aDelegate interCellsSize];
     
     NSInteger rowIndex = 0;
 
@@ -50,7 +47,7 @@
         NSInteger sumOfUnits = [self sumOfUnitsInCellModelsRow:row];
         NSInteger numberOfCells = [row count];
         
-        CGFloat spaceForAllCells = collectionView.bounds.size.width - numberOfCells * [self interCellsSize];
+        CGFloat spaceForAllCells = collectionView.bounds.size.width - numberOfCells * [aDelegate interCellsSize] ;
         
         // represents a "ratio" in the screen
         CGFloat unitSize = spaceForAllCells / sumOfUnits;
@@ -71,10 +68,10 @@
                                          cellHeight);
             
             // shift currentPosX by width of unitSize + interCellSize
-            posX += unitSize * cellModel.sizeInUnit + [self interCellsSize];
+            posX += unitSize * cellModel.sizeInUnit + interCellsSize;
             
         }
-        posY += macCellHeightInRow + [self interCellsSize];
+        posY += macCellHeightInRow + interCellsSize;
         
         rowIndex++;
     }

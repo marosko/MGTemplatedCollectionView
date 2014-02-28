@@ -23,6 +23,8 @@
   [a][b][ccc]
   [a][dd][ee]
  */
-- (MGTemplateModel*)parsedTemplateModelFromTemplateInput:(MGTemplateRepresentation*)input;
+- (MGTemplateModel*)parsedTemplateModelFromTemplateRepresentation:(MGTemplateRepresentation*)input;
+
+
 
 @end

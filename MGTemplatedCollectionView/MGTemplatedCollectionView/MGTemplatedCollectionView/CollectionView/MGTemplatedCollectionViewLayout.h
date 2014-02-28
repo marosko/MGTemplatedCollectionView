@@ -9,9 +9,12 @@
 #import <UIKit/UIKit.h>
 
 @class MGTemplateModel;
+@class MGTemplateRepresentation;
 
 @interface MGTemplatedCollectionViewLayout : UICollectionViewLayout
 
-@property (nonatomic, strong) MGTemplateModel* templateModel;
+- (void)setupWithTemplateRepresentation:(MGTemplateRepresentation*)templateRepresentation;
+
+@property (nonatomic, readonly) MGTemplateModel* templateModel;
 
 @end

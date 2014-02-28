@@ -37,8 +37,7 @@
 - (void)reset
 {
     self.cellModels = [NSMutableArray array];
-    self.lineIndex = -1;
-    [self addNewRow];
+    self.lineIndex = NSNotFound;
     self.cellModelsFlat = [NSMutableArray array];
 }
 
@@ -70,15 +69,63 @@
 
 - (void)addNewRow
 {
-    _lineIndex++;
+    if ( _lineIndex == NSNotFound ) {
+        _lineIndex = 0;
+    } else {
+        _lineIndex++;
+    }
     [self.cellModels addObject:[NSMutableArray array]];
+}
+
+
+// when a cell out of template cell's index is requested, then the last "row template" is repeated infinitely
+- (CGRect)frameForCellOutOfBoundsAtIndex:(NSInteger)atIndex
+{
+    NSArray* lastRow = [self.cellModels lastObject];
+    
+    NSInteger numberOfRowsAtLastCell = [lastRow count];
+    
+    CGFloat sizeOfLastRow = 0;
+    CGFloat lastRowMaxY = 0;
+    for ( MGCellModel* aCellModel in lastRow ) {
+        if ( CGRectGetMaxY(aCellModel.frame) > lastRowMaxY ) {
+            lastRowMaxY = CGRectGetMaxY(aCellModel.frame);
+        }
+        
+        if ( CGRectGetHeight(aCellModel.frame) > sizeOfLastRow ) {
+            sizeOfLastRow = CGRectGetHeight(aCellModel.frame);
+        }
+    }
+    
+    // how many rows is index out of bounds?
+    NSInteger outOfBoundsRows = (atIndex - [self numberOfCells]) / numberOfRowsAtLastCell;
+    
+    CGFloat posY = lastRowMaxY + [self interCellsSize] + (outOfBoundsRows-1) * (sizeOfLastRow + [self interCellsSize]);
+    
+    // general idea - take the correspondenting cell in the last row and change it's posY
+    
+    NSInteger virtualIndexAtLastRow = (atIndex - [self numberOfCells]);
+    if ( virtualIndexAtLastRow >= numberOfRowsAtLastCell ) { // can not modulo by 0
+        virtualIndexAtLastRow %= outOfBoundsRows*numberOfRowsAtLastCell;
+    }
+    
+    MGCellModel* virtualLastRowCellModel = [lastRow objectAtIndex:virtualIndexAtLastRow];
+    
+    CGRect frame = virtualLastRowCellModel.frame;
+    frame.origin.y = posY;
+    
+    return frame;
 }
 
 - (CGRect)frameForCellAtIndex:(NSInteger)anIndex
 {
     if ( anIndex >= [self.cellModelsFlat count] ) {
-        NSLog(@"WARNING: asking for size of cell in index that is out of bounds! returns empty rect");
-        return CGRectNull;
+        // if a cell was not specified in the template, use the last row as a layout to be used
+        
+        return [self frameForCellOutOfBoundsAtIndex:anIndex];
+        
+//        NSLog(@"WARNING: asking for size of cell in index that is out of bounds! returns empty rect");
+//        return CGRectNull;
     }
     
     
@@ -93,6 +140,13 @@
                  usingBlock:(void (^)(MGCellModel *, NSUInteger, BOOL *))block
 {
     [[self.cellModels objectAtIndex:row] enumerateObjectsUsingBlock:block];
+}
+
+#pragma mark - MGTEmplateModelDecorator delagate
+
+- (CGFloat)interCellsSize
+{
+    return 10.0;
 }
 
 @end

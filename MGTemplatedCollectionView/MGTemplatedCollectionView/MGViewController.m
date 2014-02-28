@@ -8,12 +8,9 @@
 
 #import "MGViewController.h"
 
-#import "MGTemplateParser.h"
-#import "MGSyntax.h"
 #import "MGTemplateModel.h"
 #import "MGTemplatedCollectionViewLayout.h"
 
-#import "MGTemplateModelDecorator.h"
 #import "MGTemplateRepresentation.h"
 
 @interface MGViewController ()
@@ -26,7 +23,6 @@
 
 - (void)setupWithTemplateText:(NSString*)templateText
 {
-    MGTemplateParser *parser = [[MGTemplateParser alloc] initWithSyntax:[[MGSyntax alloc] init]];
 
 //    NSMutableString *template = [NSMutableString string];
 //    [template appendString:@"[xx][bb][cc]\n"];
@@ -35,13 +31,7 @@
     
     MGTemplateRepresentation* template = [[MGTemplateRepresentation alloc] initWithStringRepresentation:templateText];
     
-    self.templateModel = [parser parsedTemplateModelFromTemplateInput:template];
-    
-    MGTemplateModelDecorator* modelDecorator = [[MGTemplateModelDecorator alloc] init];
-    [modelDecorator calculateCellsPositionsInTemplateModel:self.templateModel
-                                         forCollectionView:self.collectionView];
-    
-    ((MGTemplatedCollectionViewLayout*)(self.collectionView.collectionViewLayout)).templateModel = self.templateModel;
+    [((MGTemplatedCollectionViewLayout*)(self.collectionView.collectionViewLayout)) setupWithTemplateRepresentation:template];
 }
 
 - (IBAction)renderTemplate:(id)sender
@@ -65,8 +55,8 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    NSInteger numberOfCells = [self.templateModel numberOfCells];
-    return numberOfCells;
+    // TODO
+    return 20;
 }
 
 // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:

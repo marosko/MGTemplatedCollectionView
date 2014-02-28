@@ -8,9 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+#import "MGTemplateModelDecorator.h"
+
 @class MGCellModel;
 
-@interface MGTemplateModel : NSObject
+@interface MGTemplateModel : NSObject <MGTemplateModelDelegate>
 
 - (void)addCellModel:(MGCellModel*)aCellModel;
 - (void)addNewRow;

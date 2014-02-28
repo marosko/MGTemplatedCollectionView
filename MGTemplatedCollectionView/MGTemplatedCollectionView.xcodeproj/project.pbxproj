@@ -28,6 +28,7 @@
 		6E8E5C5918B67C7E00B9829A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E8E5C3518B67C7E00B9829A /* Foundation.framework */; };
 		6E8E5C5A18B67C7E00B9829A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E8E5C3918B67C7E00B9829A /* UIKit.framework */; };
 		6E9741D318BE8653009819F0 /* NSRegularExpression+MGCustom.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E9741D218BE8653009819F0 /* NSRegularExpression+MGCustom.m */; };
+		6ECB440318BFD606009635E1 /* MGTemplateRepresentation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ECB440218BFD606009635E1 /* MGTemplateRepresentation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +73,8 @@
 		6E8E5C5718B67C7E00B9829A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		6E9741D118BE8653009819F0 /* NSRegularExpression+MGCustom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSRegularExpression+MGCustom.h"; sourceTree = "<group>"; };
 		6E9741D218BE8653009819F0 /* NSRegularExpression+MGCustom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSRegularExpression+MGCustom.m"; sourceTree = "<group>"; };
+		6ECB440118BFD606009635E1 /* MGTemplateRepresentation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGTemplateRepresentation.h; sourceTree = "<group>"; };
+		6ECB440218BFD606009635E1 /* MGTemplateRepresentation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGTemplateRepresentation.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +152,8 @@
 				6E2F620118BD54F400494500 /* MGCellModel.m */,
 				6E2F620218BD54F400494500 /* MGTemplateModel.h */,
 				6E2F620318BD54F400494500 /* MGTemplateModel.m */,
+				6ECB440118BFD606009635E1 /* MGTemplateRepresentation.h */,
+				6ECB440218BFD606009635E1 /* MGTemplateRepresentation.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -291,6 +296,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6E2F621418BD54F400494500 /* MGSyntax.m in Sources */,
+				6ECB440318BFD606009635E1 /* MGTemplateRepresentation.m in Sources */,
 				6E2F621218BD54F400494500 /* MGAppDelegate.m in Sources */,
 				6E2F621618BD54F400494500 /* MGTemplateParser.m in Sources */,
 				6E2F621518BD54F400494500 /* MGTemplateModelDecorator.m in Sources */,

@@ -10,9 +10,18 @@
 
 @class MGTemplateModel;
 
+
+
+@protocol MGTemplateModelDelegate
+
+- (CGFloat)interCellsSize;
+
+@end
+
 @interface MGTemplateModelDecorator : NSObject
 
 - (void)calculateCellsPositionsInTemplateModel:(MGTemplateModel*)templateModel
+                                  withDelegate:(id <MGTemplateModelDelegate>)delegate
                              forCollectionView:(UICollectionView*)collectionView;
 
 @end
